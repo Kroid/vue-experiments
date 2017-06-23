@@ -2,23 +2,24 @@
   <section class='todoapp'>
     <header class='header'>
       <h1>todos</h1>
-      <new-todo-input @createTodo='createTodo'></new-todo-input>
+      <new-todo-input></new-todo-input>
     </header>
 
     <section class='main'>
-      <toggle @completeAll='completeAll'></toggle>
+      <toggle></toggle>
       <todo-list v-bind:todos='filteredTodos'></todo-list>
     </section>
 
     <footer class='footer'>
-      <todo-count :count='todoCount'></todo-count>
-      <filters @selectFilter='selectFilter'></filters>
-      <clear-completed @clearCompleted='clearCompleted'></clear-completed>
+      <todo-count></todo-count>
+      <filters></filters>
+      <clear-completed></clear-completed>
     </footer>
   </section>
 </template>
 
 <script>
+  import { mapGetters, mapMutations } from 'vuex'
   import NewTodoInput from './components/NewTodoInput'
   import Toggle from './components/Toggle'
   import TodoList from './components/TodoList'
@@ -36,48 +37,10 @@
       Filters,
       ClearCompleted
     },
-    data: () => {
-      return {
-        todos: [
-          {text: 'example todo', completed: false},
-          {text: 'another todo', completed: false},
-          {text: 'third', completed: false},
-        ],
-        selectedFilter: 'all',
-      }
-    },
-    methods: {
-      clearCompleted: function() {
-        this.todos = this.todos.filter((todo) => { return !todo.completed })
-      },
-      completeAll: function() {
-        let uncompleted = this.todos.filter((todo) => { return !todo.completed })
-        if (uncompleted.length) {
-          uncompleted.map((todo) => { todo.completed = true })
-        } else {
-          this.todos.map((todo) => { todo.completed = false })
-        }
-      },
-      createTodo: function(text) {
-        this.todos.push({text: text, completed: false})
-      },
-      selectFilter: function(filter) {
-        this.selectedFilter = filter;
-      }
-    },
     computed: {
-      filteredTodos: function() {
-        if (this.selectedFilter == 'completed') {
-          return this.todos.filter((todo) => { return todo.completed; })
-        } else if (this.selectedFilter == 'active') {
-          return this.todos.filter((todo) => { return !todo.completed; })
-        } else {
-          return this.todos;
-        }
-      },
-      todoCount: function() {
-        return this.todos.filter((todo) => { return !todo.completed; }).length;
-      },
+      ...mapGetters([
+        'filteredTodos',
+      ])
     }
   }
 </script>

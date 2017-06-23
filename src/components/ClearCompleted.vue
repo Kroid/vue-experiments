@@ -3,14 +3,15 @@
 </template>
 
 <script>
-export default {
-  name: 'ClearCompleted',
-  methods: {
-    clearCompleted: function() {
-      this.$emit('clearCompleted')
+  import { mapMutations } from 'vuex'
+  export default {
+    name: 'ClearCompleted',
+    methods: {
+      ...mapMutations([
+        'clearCompleted',
+      ]),
     }
   }
-}
 </script>
 
 <style>

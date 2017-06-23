@@ -3,14 +3,15 @@
 </template>
 
 <script>
-export default {
-  name: 'Toggle',
-  methods: {
-    completeAll: function() {
-      this.$emit('completeAll')
+  import { mapMutations } from 'vuex'
+  export default {
+    name: 'Toggle',
+    methods: {
+      ...mapMutations([
+        'completeAll',
+      ]),
     }
   }
-}
 </script>
 
 <style>

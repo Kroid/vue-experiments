@@ -1,11 +1,17 @@
 <template>
-  <span class='todo-count'>{{ count }} items left</span>
+  <span class='todo-count'>{{ activeTodosCount }} items left</span>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'TodoCount',
   props: ['count'],
+  computed: {
+    ...mapGetters([
+      'activeTodosCount',
+    ])
+  }
 }
 </script>
 

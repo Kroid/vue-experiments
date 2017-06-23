@@ -20,8 +20,7 @@
     methods: {
       submit: function() {
         if (!this.text) return;
-
-        this.$emit('createTodo', this.text);
+        this.$store.commit('createTodo', this.text);
         this.text = ''
       }
     }
